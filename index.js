@@ -22,14 +22,11 @@ const { y2mate } = require('./lib/y2mate');
 const { y2mateA, y2mateV } = require('./lib/y2mate.js')
 const { yta, ytv, igdl, upload, formatDate } = require('./lib/ytdl')
 const { wikiSearch } = require('./lib/wiki.js')
-const { webp2gifFile, igDownloader, TiktokDownloader } = require("./lib/gif.js")
 const { wait, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, start, success, close } = require('./lib/function')
 
 const fetch = require('node-fetch')
 const get = require('got')
 const speednye = require('performance-now')
-const speednya = require('performance-now')
-const speed2 = require('performance-now')
 const fs = require('fs')
 const os = require('os')
 const qrcode = require('qrcode-terminal')
@@ -56,7 +53,7 @@ pebz.logger.level = 'warn'
 pebz.version = [2, 2143, 12];
 pebz.browserDescription = ['ArulBot', 'Safari', '3.0']
 console.log(start)
-console.log('>', '[',color('Berhasil Tersambung Ke Perangkat','lime'),']','pebz')
+console.log('>', '[',color('Berhasil Tersambung Ke Perangkat','lime'),']','FEBSELF')
 pebz.on('qr', qr => {
 qrcode.generate(qr, { small : true })
 console.log(color(`[ BOT ] SCAN QR DI ATAS BRO`,'white'))
@@ -65,9 +62,9 @@ console.log(color(`[ BOT ] SCAN QR DI ATAS BRO`,'white'))
 pebz.on('credentials-updated', () => {
 	const authinfo = pebz.base64EncodedAuthInfo()
 	console.log('session has bim save')
-	fs.writeFileSync('./TD.json', JSON.stringify(authinfo, null, '\t'))
+	fs.writeFileSync('./pebz.json', JSON.stringify(authinfo, null, '\t'))
 })
-   fs.existsSync('./TD.json') && pebz.loadAuthInfo('./TD.json')
+   fs.existsSync('./pebz.json') && pebz.loadAuthInfo('./pebz.json')
    pebz.connect();
  
    pebz.on('CB:Blocklist', json => {
@@ -82,7 +79,7 @@ pebz.on('credentials-updated', () => {
 		calling = JSON.parse(JSON.stringify(json))
 		call = calling[1].from
 		setTimeout(function(){
-			pebz.sendMessage(call, '*Mohon Maaf Nomor Ini Telah Terdaftar Sebagai Bot*\n*Jangan Menelpon ada Video Call*\n*Karena Akan Diblock Secara Otomatis*\nChat Ke Owner Untuk Membuka Block*\n*wa.me/6281229859085*', MessageType.text)
+			pebz.sendMessage(call, 'Maaf, saya tidak bisa menerima panggilan. nelfon = block!.\nJika ingin membuka block harap chat Owner!\nhttps//wa.me/+6285849261085', MessageType.text)
 			.then(() => pebz.blockUser(call, "add"))
 			}, 100);
 		})
@@ -99,7 +96,7 @@ pebz.on('group-participants-update', async (chat) => {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `*Hallo* @${num.split('@')[0]}\nSelamat Datang di Group *${mdata.subject}*\nIntro Dulu Ya:\nNama :\nUmur :\nJenis Kelamin :\nStatus :\n\n\n®BotWhatsApp by ArulGanz`
+				teks = `*Hallo* @${num.split('@')[0]}\nSelamat datang di group *${mdata.subject}*\nJangan rusuh ya\nJangan lupa intro @${num.split('@')[0]} ðŸ—£\nBtw Admin Disini Ganteng-Ganteng+Cantik-CantikðŸ˜‚ðŸ¤­`
 				let buff = await getBuffer(ppimg)
 				pebz.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 				} else if (chat.action == 'remove') {
@@ -109,7 +106,7 @@ pebz.on('group-participants-update', async (chat) => {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `*Kalau Masuk Lagi Gak Papa Kok Aku Masih Disini* @${num.split('@')[0]}\n*Masih Menunggumu*`
+				teks = `*Mau Tau Anak Kintill Gak? IniðŸ‘†* @${num.split('@')[0]}\n*fuck this human*`
 				let buff = await getBuffer(ppimg)
 				pebz.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			}
@@ -206,60 +203,6 @@ console.log(e)
 			const mentions = (teks, memberr, id) => {
 				(id == null || id == undefined || id == false) ? pebz.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : pebz.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
 			}
-			const sendKontak = (from, nomor, nama, org = "") => {
-	       const vcard = 'BEGIN:VCARD\n' + 'VERSION:3.0\n' + 'FN:' + nama + '\n' + 'ORG:' + org + '\n' + 'TEL;type=CELL;type=VOICE;waid=' + nomor + ':+' + nomor + '\n' + 'END:VCARD'
-	       pebz.sendMessage(from, {displayname: nama, vcard: vcard}, MessageType.contact, {quoted: mek})
-}
-			const fakestatus = (teks) => {
-            pebz.sendMessage(from, teks, text, {
-                quoted: {
-                    key: {
-                        fromMe: false,
-                        participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {})
-                    },
-                    message: {
-                        "imageMessage": {
-                            "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc",
-                            "mimetype": "image/jpeg",
-                            "caption": fake,
-                            "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=",
-                            "fileLength": "28777",
-                            "height": 1080,
-                            "width": 1079,
-                            "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=",
-                            "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=",
-                            "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
-                            "mediaKeyTimestamp": "1610993486",
-                            "jpegThumbnail": fs.readFileSync(`media/gambar/biasa.png`),
-                            "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="
-                        }
-                    }
-                }
-            })
-        }
-        const ftoko = {
-key: {
-			fromMe: false,
-			participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "6289523258649-1604595598@g.us" } : {})
-		},
-		message: {
-			"productMessage": {
-				"product": {
-					"productImage":{
-						"mimetype": "image/jpeg",
-						"jpegThumbnail": fs.readFileSync(`media/gambar/biasa.png`) //Gambarnye
-					},
-					"title": 'Whatsapp bot', 
-					"description": "ArulBotz", 
-					"currencyCode": "IDR",
-					"priceAmount1000": "70000000",
-					"retailerId": 'Whatsapp Bot',
-					"productImageCount": 1
-				},
-				    "businessOwnerJid": `0@s.whatsapp.net`
-		}
-	}
-}
 			       const fakethumb = (teks, yes) => {
             pebz.sendMessage(from, teks, image, {thumbnail:fs.readFileSync('./media/gambar/biasa.png'),quoted:mek,caption:yes})
             } 
@@ -319,7 +262,7 @@ key: {
                 });
                 };
                 download(url, './stik' + names + '.png', async function () {
-                console.log('Done Kak');
+                console.log('Done Kak Pebri');
                 let filess = './stik' + names + '.png'
                 let asw = './stik' + names + '.webp'
                 exec(`ffmpeg -i ${filess} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${asw}`, (err) => {
@@ -334,8 +277,8 @@ key: {
 
         
 	        mess = {
-				wait: 'Wait Kak... ',
-				success: 'Sucess Gan',
+				wait: 'tunggu sebentar.......',
+				success: 'Sucess âœ“â€œ',
 				notxt: 'textnya mana ?',
 				error: {
 					stick: 'gagal saat konvensi gambar ke sticker',
@@ -347,7 +290,7 @@ key: {
 					admin: 'Khusus Admin grup'
 				}
 			}
-		   const pebz = {
+		   const lordpeb = {
 	       key : {
            participant : '0@s.whatsapp.net'
            },
@@ -437,8 +380,8 @@ const time2 = moment().tz("Asia/Makassar").format("HH:mm:ss");
             const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
             const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
            const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
-			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mpebz\x1b[1;37m]', color(pushname), 'Menggunakan Fitur', color(command), 'args :', color(args.length))
-        	if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mpebz\x1b[1;37m]', color(pushname), 'Memakai Fitur', color(command), 'DI Group', color(groupName), 'args :', color(args.length))        	        	
+			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mPEBSELF\x1b[1;37m]', color(pushname), 'Menggunakan Fitur', color(command), 'args :', color(args.length))
+        	if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mPEBSELF\x1b[1;37m]', color(pushname), 'Memakai Fitur', color(command), 'DI Group', color(groupName), 'args :', color(args.length))        	        	
             if (self === true && !isOwner && isCmd) return
           
            
@@ -448,68 +391,79 @@ const time2 = moment().tz("Asia/Makassar").format("HH:mm:ss");
              uptime = process.uptime()            
 		     const hiya = await fetchJson('https://xinzbot-api.herokuapp.com/api/ucapan?apikey=XinzBot&timeZone=Asia/Jakarta', {method:'get'})
 		     var p = '```'
-		    const tod =`*ArulBotz*		    
-${p}⚜️${ucapanWaktu} kak ${pushname}${p}		    
-${p}🔣Prefix : ${prefix}${p}
-${p}🌟Runtime : ${kyun(uptime)}${p}`
+		const tod =`
+┏━━━━━━━━━━━━━━━⬣ 
+┃┃✯┏━━⬣ *ARUL BOTZ*
+┃┃✯┃⬡ ${p}⚜️Hai kak ${pushname}${p}		
+┃┃✯┃⬡ ${p}🔣Prefix : ${prefix}${p}
+┃┃✯┃⬡ ${p}🌟Runtime : ${kyun(uptime)}${p}
+┃┃✯┗━━⬣
+┗━━━━━━━━━━━━━━━⬣`
 tod2 =`
-*🛒BOT MENU*
-
-${p}1. ${prefix}bc <query>${p}
-${p}2. ${prefix}bc2 <query>${p}
-${p}3. ${prefix}bcs <reply sticker>${p}
-${p}4. ${prefix}bca <reply audio>${p}
-${p}5. ${prefix}bcv <reply gif/video>${p}
-${p}6. ${prefix}sticker <reply img>${p}
-${p}7. ${prefix}sticker2 <reply img>${p}
-${p}8. ${prefix}toimg <reply sticker>${p}
-${p}9. ${prefix}play <query>${p}
-${p}10. ${prefix}ytdl <url>${p}
-${p}11. ${prefix}ytmp3 <query>${p}
-${p}12. ${prefix}ytmp4 <query>${p}
-${p}13. ${prefix}ttwm <url>${p}
-${p}14. ${prefix}ttnowm <url>${p}
-${p}15. ${prefix}wiki <query>${p}
-${p}16. ${prefix}pinterest <query>${p}
-${p}17. ${prefix}tourl <reply media>${p}
-${p}18. ${prefix}ssweb <Url>${p}
-${p}19. ${prefix}setgc ${p}
-${p}20. ${prefix}tagall <query>${p}
-${p}21. ${prefix}hidetag <teks>${p}
-        
-
-
-🛒®Bot WhatsaApp By ArulGanz
-`           
+┏━━━━━━━➤「 𝐌𝐄𝐍𝐔 𝐍𝐘𝐀」
+┃┃✯${p}1. ${prefix}sticker <reply img>${p}
+┃┃✯${p}2. ${prefix}sticker2 <reply img>${p}
+┃┃✯${p}3. ${prefix}toimg <reply sticker>${p}
+┃┃✯${p}4. ${prefix}wiki <query>${p}
+┃┃✯${p}5. ${prefix}pinterest <query>${p}
+┃┃✯${p}6. ${prefix}tourl <reply media>${p}
+┃┃✯${p}7. ${prefix}ssweb <Url>${p}
+┃┃✯┏━━⬣ 𝖮𝖶𝖭𝖤𝖱 𝖬𝖤𝖭𝖴 
+┃┃✯┃⬡ ${p}1. ${prefix}bc <query>${p}                   
+┃┃✯┃⬡ ${p}2. ${prefix}bc2 <query>${p}                
+┃┃✯┃⬡ ${p}3. ${prefix}bcs <reply sticker>${p}     
+┃┃✯┃⬡ ${p}4. ${prefix}bca <reply audio>${p}
+┃┃✯┃⬡ ${p}5. ${prefix}bcv <reply gif/video>${p}
+┃┃✯┗━━━━━━━━━━⬣
+┃┃✯┏━━⬣ 𝖦𝖱𝖴𝖯 𝖬𝖤𝖭𝖴
+┃┃✯┃⬡ ${p}1. ${prefix}setgc ${p}
+┃┃✯┃⬡ ${p}2. ${prefix}tagall <query>${p}
+┃┃✯┃⬡ ${p}3. ${prefix}hidetag <teks>${p}
+┃┃✯┗━━━━━━━━━━⬣
+┃┃✯┏━━⬣ 𝖣𝖮𝖶𝖭𝖫𝖮𝖠𝖣 𝖬𝖤𝖭𝖴 
+┃┃✯┃⬡ ${p}1. ${prefix}play <query>${p}                   
+┃┃✯┃⬡ ${p}2. ${prefix}ytdl <url>${p}                
+┃┃✯┃⬡ ${p}3. ${prefix}ytmp3 <url>${p}     
+┃┃✯┃⬡ ${p}4. ${prefix}ytmp4 <url>${p}
+┃┃✯┃⬡ ${p}4. ${prefix}ttwm <url>${p}
+┃┃✯┃⬡ ${p}5. ${prefix}ttnowm <url>${p}
+┃┃✯┗━━━━━━━━━━⬣
+┗━━━━━━━「 *Bot WhatsaApp by ArulGanz*」
+`
            but = [
-          { buttonId: `${prefix}owner`, buttonText: { displayText: '```OWNER```' }, type: 1 },
-          { buttonId: `${prefix}ig0`, buttonText: { displayText: '```INSTAGRAM```' }, type: 1 }
+          { buttonId: `${prefix}owner`, buttonText: { displayText: '```OWNER```' }, type: 1 }, { buttonId: `${prefix}patnerbot`, buttonText: { displayText: '```PATNER BOT```' }, type: 1 }
                   ]
         sendButLocation(from, tod, tod2, gambar, but)
            break
-           case 'ig0':
-           sendButMessage(from, ``, `Tekan Button Dibawah Untuk Mengetahui Patner Bot`, [
-            {
-              buttonId: `${prefix}pb`,buttonText: {displayText: `Patner Bot`},
-              type: 1,
-            }]);
-        break;
-        case 'pb':
+        case 'patnerbot':
 teks =
 `┏━➤ 「 *Patner Bot*」
-┃┃✯ 1. Aril Dwi Indra Lesmana😎
-┃┃✯ 2. Dimas Ari Saputra😎
-┃┃✯ 3. ArulGanz 😎
-┃┃✯ *Kami Masih Nob Bang Jangan Di Bully*
+┃┃✯ *1. Aril Dwi Indra Lesmana*😎
+┃┃✯ *2. Dimas Ari Saputra*😎
+┃┃✯ *3. ArulGanz*😎
+┃┃✯ *Kita Nob Bang Jangan Di Bully*
 ┃┃✯ *Udah Jago Gak Boleh Sombong*
+┗━━━━━━━
+┏━➤ 「 *Follow Instagram Owner Botz*」
+┃┃✯ *https://bit.ly/3dT9725*
 ┗━━━━━━━`
-gam = fs.readFileSync('./media/gambar/biasa.png')
+gam = fs.readFileSync('./media/gambar/patner.png')
 but = [
-          { buttonId: `${prefix}menu`, buttonText: { displayText: 'BACK TO MENU' }, type: 1 },
-          { buttonId: `${prefix}owner`, buttonText: { displayText: 'OWNER' }, type: 1 },
+          { buttonId: `${prefix}menu`, buttonText: { displayText: 'Back To Menu' }, type: 1 }, { buttonId: `${prefix}officialgc`, buttonText: { displayText: 'Grup Bot Me' }, type: 1 },
         ]
-        sendButImage(from, teks, "©BotWhatsapp By ArulGanz", gam, but)
+        sendButLocation(from, teks, "©BotWhatsapp By ArulGanz", gam, but)
 break
+case 'officialgc':
+               let pp2 =`
+┏━➤ 「 *Join Grup Bang*」
+┃┃✯ *https://bit.ly/3dAK8Ag*
+┗━━━━━━━`
+          gam = fs.readFileSync('./media/gambar/ping.png')
+          but = [
+          { buttonId: `.owner`, buttonText: { displayText: 'Join Ya Bang' }, type: 1 }
+        ]
+        sendButLocation(from, pp2, "©BotWhatsapp By ArulGanz", gam, but)
+        break;        
         case 'bcsticker':
 case 'bcs':
 					if (!mek.key.fromMe && !isOwner && !isCreator) return reply(lang.onlyOwner())
@@ -556,7 +510,17 @@ case 'bcv':
             let di = await getBuffer(ac)
             await pebz.sendMessage(from,di,image,{quoted: mek})
             break
-       	   case 'ttnowm':
+            case 'ssweb':
+             if (args.length == 0) return reply(`Example: ${prefix + command} https://nekopoi.care/`)
+             reply(mess.wait)
+             ini_link = args[0]
+             ini_buffer = await getBuffer(`https://hardianto-chan.herokuapp.com/api/tools/ssweb?url=${ini_link}&apikey=hardianto`)
+             await pebz.sendMessage(from, ini_buffer, image, { quoted: mek })
+             break
+       	   case 'tiktokdl':
+       	   case 'tiktok':
+       	   case 'tt':
+       	   case 'ttdl':
  		   if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(error.lv)
  		   reply(mess.wait)
 		    hx.ttdownloader(`${args[0]}`)
@@ -570,79 +534,6 @@ case 'bcv':
                     })
      		.catch(e => console.log(e))
      		break
-     case 'ttwm':
- 		   if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(error.lv)
- 		   reply(mess.wait)
-		    hx.ttdownloader(`${args[0]}`)
-    		.then(result => {
-    		const { wm, nowm, audio } = result
-    		axios.get(`https://tinyurl.com/api-create.php?url=${nowm}`)
-    		.then(async (a) => {
-    		me = `*Udah Gw Downloadin nih Ngab Bilang Makasih Kek!!*`
-                pebz.sendMessage(from,{url:`${wm}`},video,{mimetype:'video/mp4',quoted:mek,caption:me})
-		    })
-                    })
-     		.catch(e => console.log(e))
-     		break
-     case 'tospam':
-if (!isQuotedSticker && !isQuotedAudio && !isQuotedImage && budy.length > 10) {
-teks = body.slice(8)
-oi1 = teks.split('|')[0]
-oi2 = teks.split('|')[1]
-if (Number(oi2) >= 99999) return reply('Kebanyakan!')
-if (!Number(oi2)) return reply('Jumlah harus berupa angka!')
-	  for (let i = 0; i < oi2; i++) {
-	  pebz.sendMessage(from, `${oi1}`, MessageType.text)
-	  }
-} else if (!isQuotedSticker && !isQuotedAudio && !isQuotedImage && budy.length < 10) {
-teks = mek.message.extendedTextMessage.contextInfo.quotedMessage.conversation
-if (!Number(args[0])) return reply('Jumlah harus berupa angka!')
-if (Number(args[0]) >= 99999) return reply('Kebanyakan!')
-	  for (let i = 0; i < args[0]; i++) {
-	  pebz.sendMessage(from, teks, MessageType.text)
-	  }
-} else if (isQuotedSticker) {
-	encmedian = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-	         median = await pebz.downloadAndSaveMediaMessage(encmedian)
-				anu = fs.readFileSync(median)
-	if (!Number(args[0])) return reply('Jumlah harus berupa angka!')
-	if (Number(args[0]) >= 99999) return reply('Kebanyakan!')
-	  for (let i = 0; i < args[0]; i++) {
-	  pebz.sendMessage(from, anu, sticker)
-	  }
-} else if (isQuotedAudio) {
-	encmediat = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-	            mediat = await pebz.downloadAndSaveMediaMessage(encmediat)
-				anu = fs.readFileSync(mediat)
-	if (!Number(args[0])) return reply('Jumlah harus berupa angka!')
-	if (Number(args[0]) >= 99999) return reply('Kebanyakan!')
-	  for (let i = 0; i < args[0]; i++) {
-	  pebz.sendMessage(from, anu, audio, {mimetype: 'audio/mp4', duration: 234, ptt:true})
-	  }
-} else if (isQuotedImage) {
-	boij = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-	delb = await pebz.downloadMediaMessage(boij)
-	teks = body.slice(6)
-	oi1 = teks.split('|')[0]
-oi2 = teks.split('|')[1]
-if (Number(oi2) >= 99999) return reply('Kebanyakan!')
-
-	if (!Number(oi2)) return reply('Jumlah harus berupa angka!')
-	  for (let i = 0; i < oi2; i++) {
-	  pebz.sendMessage(from, delb, MessageType.image, {caption: oi1})
-	  }
-}
-	  break
-    case 'tourl':
-            if ((isMedia && !mek.message.videoMessage || isQuotedImage || isQuotedVideo ) && args.length == 0) {
-            boij = isQuotedImage || isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-            owgi = await pebz.downloadMediaMessage(boij)
-            res = await upload(owgi)
-            reply(res)
-            } else {
-            reply('kirim/reply gambar/video')
-            }
-            break                
            case 'simi':
            case 'p':
            case 'bot':
@@ -658,9 +549,9 @@ if (Number(oi2) >= 99999) return reply('Kebanyakan!')
             resa = await wikiSearch(teks).catch(e => {
             return reply('_[ ! ] Error Hasil Tidak Ditemukan_') 
             }) 
-result = `♻️*Wiki*♻️
-✴️*Judul :* ${resa[0].judul}
-✴️*Wiki :* ${resa[0].wiki}`
+result = `â’ã€Œ  *Wiki*  ã€
+â”œ *Judul :* ${resa[0].judul}
+â”” *Wiki :* ${resa[0].wiki}`
            sendFileFromUrl(resa[0].thumb, image, {quoted: fkontak, caption: result}).catch(e => {
            reply(result)
            })
@@ -676,54 +567,61 @@ result = `♻️*Wiki*♻️
         yta(yut.videos[0].url)             
         .then(async(res) => {
         const { thumb, title, filesizeF, filesize } = res
-        const capti = `⚜️YouTube Downloader⚜️
+        const capti = `ð—¬ð—¢ð—¨ð—§ð—¨ð—•ð—˜ ð—£ð—Ÿð—”ð—¬ðŸ
 		     
-✴️Judul : ${yut.all[0].title}
-✴️ID Video : ${yut.all[0].videoId}
-✴️Diupload Pada : ${yut.all[0].ago}
-✴️Views : ${yut.all[0].views}
-✴️Durasi : ${yut.all[0].timestamp}
-✴️Channel : ${yut.all[0].author.name}
-✴️Link Channel : ${yut.all[0].author.url}`      
+â€¢ðŸ’¬ Judul : ${yut.all[0].title}
+â€¢ðŸŽ¥ ID Video : ${yut.all[0].videoId}
+â€¢â°ï¸ Diupload Pada : ${yut.all[0].ago}
+â€¢ðŸ‘ï¸ï¸ Views : ${yut.all[0].views}
+â€¢â–¶ï¸ Durasi : ${yut.all[0].timestamp}
+â€¢ðŸ“ Channel : ${yut.all[0].author.name}
+â€¢ðŸ”— Link Channel : ${yut.all[0].author.url}`      
         ya = await getBuffer(thumb)
         py =await pebz.prepareMessage(from, ya, image)
-        gbutsan = [{buttonId: `${prefix}buttonmusic ${yut.all[0].url}`, buttonText: {displayText: '🎶AUDIO🎶'}, type: 1},{buttonId: `${prefix}buttonvideo ${yut.all[0].url}`, buttonText: {displayText: '📽VIDEO📽'}, type: 1}]
+        gbutsan = [{buttonId: `${prefix}buttonmusic ${yut.all[0].url}`, buttonText: {displayText: 'ðŸŽµAUDIO'}, type: 1},{buttonId: `${prefix}buttonvideo ${yut.all[0].url}`, buttonText: {displayText: 'ðŸŽ¥VIDEO'}, type: 1}]
         gbuttonan = {
         imageMessage: py.message.imageMessage,
         contentText: capti,
-        footerText: '```®Bot WhatsApp by ArulGanz```\n\n```®SILAHKAN PILIH MEDIA DIBAWAH INI```',
+        footerText: '```®Bot WhatsApp by ArulGanz```\n\n```Â®SILAHKAN PILIH MEDIA DIBAWAH INI```',
         buttons: gbutsan,
         headerType: 4
 }
         await pebz.sendMessage(from, gbuttonan, MessageType.buttonsMessage)})
         break                
         case 'buttonmusic':
-        case 'ytmp3':
         if(!q) return reply('linknya?')              
         res = await yta(`${q}`).catch(e => {
         reply('```[ ! ] Error Saat Mengirim Audio```')})
         sendMedia(from, `${res.dl_link}`,{quoted:mek})
         break         
         case 'buttonvideo':
-        case 'ytmp4':
         if(!q) return reply('linknya?')            
         res = await ytv(`${q}`).catch(e => {
         reply('```[ ! ] Error Saat Mengirim Video```')})
         sendMedia(from, `${res.dl_link}`,'Nih Kack')
         break                               
            case 'self':
-			          if (!isOwner) return reply(mess.only.ownerB)
-		          	if (self === true) return
-		          	self = true
-		          	sendButMessage(from, `「 *MODE-SELF DI AKTIFKAN* 」`, `Tekan Button Dibawah Untuk Pindah Ke Mode Public`, [
-            {
-              buttonId: `${prefix}public`,
-              buttonText: {
-                displayText: `PINDAH KE MODE PUBLIC`,
-              },
-              type: 1,
-            }]);
-        break;
+           if (!isOwner) return reply(mess.only.ownerB)
+           if (self === true) return 
+            let pebzk = {
+            contextInfo: {
+            participant: '0@s.whatsapp.net',
+            remoteJid: 'status@broadcast',
+            isForwarded: true,
+            forwardingScore: 8,
+           quotedMessage: {
+           imageMessage: {
+           caption: fake,
+           jpegThumbnail: gambar,
+           mimetype: 'image/jpeg',
+           }
+           }
+           }
+           }
+           self = true 
+           let lat =`_SUCESSS_`
+           pebz.sendMessage(from, lat, MessageType.text, pebzk)
+           break  
            case 'status': 
            uptime = process.uptime()
            let pingnye = speednye();
@@ -731,7 +629,7 @@ result = `♻️*Wiki*♻️
            
            const { 
            os_version } = pebz.user.phone
-           let akutext =`✳️STATUS✳️
+           let akutext =`_ã€ŒSTATUSã€_
 *NAMA : ${pebz.user.name}*
 *BROWSER : ${pebz.browserDescription[1]}*
 *HOST : ${pebz.browserDescription[0]}*
@@ -740,7 +638,7 @@ result = `♻️*Wiki*♻️
 *WA : ${pebz.user.phone.wa_version}*
 *RAM : ${(process.memoryUsage().heapUsed / 111 / 1029 ).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1000 / 2000 )}MB*
 *OS : ${os_version} ANDROID*
-*SPEED : ${ping.toFixed(4)} SECOND*
+*SPEED : ${ping.toFixed(4)} SECOND
 *Runtime : ${kyun(uptime)}*
 ` 
             let faker = {
@@ -760,47 +658,29 @@ result = `♻️*Wiki*♻️
            }
            pebz.sendMessage(from, akutext, text, faker) 
            break
-           case 'ping':
-           case 'speed':
-           let pingnyo = speed2();
-           let pingo = speed2() - pingnyo
-           sendButMessage(from, `「 *Bot Aktif Dengan Kecepatan*\n*${pingo.toFixed(4)} Second* 」`, `Terimakasih Kak Telah Memakai Bot Jangan Spam Alayy`, [
-            {
-              buttonId: `${prefix}status`,
-              buttonText: {
-                displayText: `STATUS BOT`,
-              },
-              type: 1,
-            }]);
-        break;
-           
-           case 'tes':
-           uptime = process.uptime()
-           let pingnya = speednya();
-           let pink = speednya() - pingnya 
-           sendButMessage(from, `「 *Bot Sudah Aktif Kak*」\n「 *Bot Aktif Selama ${kyun(uptime)}*」\n「 *Dengan Kecepatan ${pink.toFixed(4)} SECOND* 」`, `Silahkan Dipakai Gak Usah Spam Alay!!!`, [
-            {
-              buttonId: `${prefix}menu`,
-              buttonText: {
-                displayText: `MENU`,
-              },
-              type: 1,
-            }]);
-        break;
-           
            case 'public':
-		              if (!isOwner) return reply(mess.only.ownerB)
-		          	if (self === false) return
-		          	self = false
-						sendButMessage(from, `「 *MODE-PUBLIC DI AKTIFKAN* 」`, `Tekan Button Dibawah Untuk Pindah Ke Mode Public`, [
-            {
-              buttonId: `${prefix}self`,
-              buttonText: {
-                displayText: `PINDAH KE MODE SELF`,
-              },
-              type: 1,
-            }]);
-        break;
+           if (!isOwner) return reply(mess.only.ownerB)
+           if (self === false) return 
+           let pebzganskun = {
+           contextInfo: {
+           participant: '0@s.whatsapp.net',
+           remoteJid: 'status@broadcast',
+           isForwarded: true,
+           forwardingScore: 8,
+           quotedMessage: {
+           imageMessage: {
+           caption: fake,
+           jpegThumbnail: gambar,
+           mimetype: 'image/jpeg',
+          //pageCount: 0
+           }
+           }
+           }
+           }
+           self = false
+           let breh =`_SUCESSS_`
+           pebz.sendMessage(from, breh, MessageType.text, pebzganskun)
+           break
            case 'nulis':
            case 'write':
            try {
@@ -813,52 +693,6 @@ result = `♻️*Wiki*♻️
               reply(`${e}`)
            }
            break 
-           case 'setgc': 
-   case 'gcset': 
-                if (!isGroup) return reply('*Hanya Dapat Digunakan Di Dalam Group*');
-        if (!isGroupAdmins) return reply('*Hanya Dapat Digunakan Oleh Admin Group*');
-        if (!isBotGroupAdmins) return reply('*Mohon Maaf Fitur Tidak Bisa Digunakan Karena Bot Bukan Admin*')
-        if (args[0] == "open") {
-          await pebz.groupSettingChange(from, GroupSettingChange.messageSend, false)
-					reply(`*Group Telah Dibuka*\n*Sekarang Semua Dapat Mengirim Pesan*`)
-        } else if (args[0] == "close") {
-          await pebz.groupSettingChange(from, GroupSettingChange.messageSend, true)
-					reply(`*Group Telah Dibuka*\n*Sekarang Hanya Admin Yang Dapat Mengirim Pesan*`)
-        } else if (!q) {
-        	var ini_gopayy =`*Hallo @${sender.split("@")[0]}*\n*Tekan Button Di Bawah Untuk Membuka Dan Menutup Group*`
-var buttonss = [
-{buttonId: `${prefix}setgc open`, buttonText:{displayText: 'Open Group'}, type: 1}, {buttonId: `${prefix}setgc close`, buttonText:{displayText: 'Close Group'}, type: 1},
-{buttonId: `${prefix}linkgc`, buttonText:{displayText: 'Link Group'}, type: 1},
-]
-
-buttonMessagee = {
-contentText: ini_gopayy,
-footerText: `BotWhatsApp By ArulGanz` ,
-buttons: buttonss,
-headerType: 1
-}
-pebz.sendMessage(from,  buttonMessagee, MessageType.buttonsMessage,{
-        caption: 'BotWhatsApp by ArulGanz',
-        "contextInfo": {
-            text: 'hi',
-            "forwardingScore": 1000000000,
-            isForwarded: true,
-            sendEphemeral: true,
-            "mentionedJid" : [sender]
-            },
-			quoted: mek,sendEphemeral: true 
-			})
-        }
-        break
-        case 'linkgrup':
-case 'linkgroup':
-				case 'linkgc':
-				    if (!isGroup) return reply('*Hanya Bisa Digunakan Di Dalam Group*')
-				    if (!isBotGroupAdmins) return reply('*Mohon Maaf Fitur Tidak Bisa Digunakan Karena Bot Bukan Admin*')
-				    linkgc = await pebz.groupInviteCode (from)
-				    yeh = `https://chat.whatsapp.com/${linkgc}\n\nlink Group *${groupName}*`
-				    pebz.sendMessage(from, yeh, text, {quoted: mek})
-			        break
 		  case 'sticker2':
 		  case 's2':
 		  var imgbb = require('imgbb-uploader')
@@ -886,6 +720,18 @@ break
 			fakethumb(buffer,'Kek Gini Bukan?')
 			fs.unlinkSync(ran)
 			})
+			break
+         case 'take':      
+         case 'colong':
+         case 'comot':
+    		if (!isQuotedSticker) return reply('Stiker aja om')
+            encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+		    media = await pebz.downloadAndSaveMediaMessage(encmedia)
+            anu = args.join(' ').split('|')
+            satu = anu[0] !== '' ? anu[0] : `SELF`
+            dua = typeof anu[1] !== 'undefined' ? anu[1] : `BOT`
+            require('./lib/fetcherr.js').createExif(satu, dua)
+			require('./lib/fetcherr.js').modStick(media, pebz, mek, from)
 			break
              case "sticker":
       case "stiker":
@@ -974,7 +820,15 @@ break
           );
         }
         break;
-           case 'owner':
+        case 'ttaudio': 
+      case 'tiktokmusic': 
+      case 'tiktokaudio':
+             if (args.length == 0) return reply(`Contoh: ${prefix + command} https://vt.tiktok.com/ZSwWCk5o/`)
+             ini_link = args[0]
+             get_audio = await getBuffer(`https://api.lolhuman.xyz/api/tiktokmusic?apikey=511fc49c7ad4edcecf8653cf&url=${ini_link}`)
+             pebz.sendMessage(from, get_audio, audio, { mimetype: Mimetype.mp4Audio, quoted: mek })
+             break
+           case 'owner1':
          members_ids = []
          for (let mem of groupMembers) {
          members_ids.push(mem.jid)
@@ -990,24 +844,6 @@ break
          })
          reply('*_Jangan Lupa Follow Instagram_*\nhttps://instagram.com/_daaa_1')
          break
-         case 'owner2':
-        case 'creator2':
-               sendKontak(from, `${owner2}`, `ArulGanz`, 'Sibukk!!')
-               await sleep(1000)
-               txtt =`Hai Kak..... ${pushname}\nItu Ownerku, Mau tau soal apa ya?`
-
-               buttons = [{buttonId: `${prefix}menu`,buttonText:{displayText: 'BACK TO MENU'},type:1},{buttonId:`${prefix}ig0`,buttonText:{displayText:'INSTAGRAM'},type:1}]
-
-               buttonsMessage = {
-               contentText: `${txtt}`,
-               footerText: 'Jangan Sungkan Chat Ya Kak',
-               buttons: buttons,
-               headerType: 1
-}
-
-               prep = await pebz.prepareMessageFromContent(from,{buttonsMessage},{})
-               pebz.relayWAMessage(prep)
-               break      
          case 'bc2':
              if (!isOwner && !mek.key.fromMe) return  reply(mess.only.owner)
              if (args.length < 1) return reply('teks?')
@@ -1016,14 +852,14 @@ break
              const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
              bc100 = await pebz.downloadMediaMessage(encmedia)
              for (let _ of anu100) {
-             pebz.sendMessage(_.jid, bc100, image, {caption: `* Izin BroadCast Kak*\n\n${body.slice(4)}`})
+             pebz.sendMessage(_.jid, bc100, image, {caption: `* Assalamualaikum, Kak Izin Broadcast *\n\n${body.slice(4)}`})
 }
              reply('Suksess broadcast')
              } else {
              for (let _ of anu100) {
              pebz.sendMessage(_.jid, 
-			{"contentText": `* Izin BroadCast Kak *\n\n${body.slice(4)}`,
-			"footerText": '🛒BotWhatsApp By ArulGanz',
+			{"contentText": `* Assalamualaikum, Kak Izin Broadcast *\n\n${body.slice(4)}`,
+			"footerText": 'ArulBotz',
 			"buttons": [
 			{"buttonId": `${prefix}menu`,
 			"buttonText": {"displayText": "MENU"
@@ -1037,14 +873,6 @@ break
              reply('Suksess broadcast')
 }
              break
-             case 'ssweb':
-            case 'ss':
-                if (args.length < 1) return reply('Urlnya mana om')
-					teks = q
-					anu = await fetchJson(`https://shot.screenshotapi.net/screenshot?&url=${teks}`)
-					buff = await getBuffer(anu.screenshot)
-					pebz.sendMessage(from, buff, image, {quoted: mek, caption : teks})
-					break
           case 'bc':
          if (!isOwner) return reply('LU BUKAN OWNER GBLOK')
          if (args.length < 1) return reply('.......')
@@ -1058,31 +886,11 @@ break
          reply('Suksess broadcast')
          } else {
          for (let _ of anu) {
-         sendMess(_.jid, `[ *Izin BroadCast Kak* ]\n\n${body.slice(4)}`)
+         sendMess(_.jid, `[ *BOT BROADCAST* ]\n\n${body.slice(4)}`)
          }
          reply('Suksess broadcast')
          }
 		break
-		case 'clearall':
-             if (!isOwner) return  reply(mess.only.owner)
-             anu = await pebz.chats.all()
-             pebz.setMaxListeners(25)
-             for (let _ of anu) {
-             pebz.deleteChat(_.jid)
-}
-             reply('Sukses delete all chat :)')
-             break
-		case 'tagall':
-			if (!isOwner) return reply(mess.only.ownerB)
-					members_id = []
-					teks = (args.length > 1) ? body.slice(8).trim() : ''
-					teks += '\n\n'
-					for (let mem of groupMembers) {
-					teks += `@${mem.jid.split('@')[0]}\n`
-					members_id.push(mem.jid)
-					}
-					mentions(teks, members_id, true)
-					break
 		case 'hidetag':
 		if (!isOwner) return reply(mess.only.ownerB)
     	var value = args.join(' ')
@@ -1100,15 +908,9 @@ break
 	    pebz.sendMessage(from, optionshidetag, text, { quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "393470602054-1351628616@g.us" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg", "caption":'ArulGanz',"fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=", "fileLength": "28777", "height": 1080, "width": 1079, "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=", "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=", "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69", "mediaKeyTimestamp": "1610993486", "jpegThumbnail": gambar} }  } })
 					break
           default: 
-          if (isCmd) 
-          sendButMessage(from, `*Mohon Maaf Fitur Tersebut*\n*Tidak Ada Dalam Menu Bot Kami*`, `🛒BotWhatsApp By ArulGanz\n\n\nButton Dibawah Untuk Membuka Menu`, [
-            {
-              buttonId: `${prefix}menu`,
-              buttonText: {
-                displayText: `*Menu*`,
-              },
-              type: 1,
-            }]);
+          if (isCmd) {
+                 reply(`Sorry bro, command *${prefix}${command}* gk ada di list *${prefix}help*`)
+                    }
 					if (isGroup && budy != undefined) {
 				} else {
 						console.log(color('[SYSTEM]','yellow'), 'PERINTAH TAK DIKENAL DARI', color(sender.split('@')[0]))
